@@ -14,7 +14,7 @@
 	<name>Team14-Webapp</name>
 	<description>Laser Tag Web App for Team 14</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
