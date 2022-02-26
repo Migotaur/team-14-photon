@@ -70,7 +70,7 @@ public class RequestHandler {
     		return "";
     	}
 
-        if (!JSONDatabaseReponse.isBlank())
+        if (!JSONDatabaseReponse)
         {
             return JSONDatabaseReponse;	
         }
