@@ -70,7 +70,7 @@ public class RequestHandler {
     		return "";
     	}
 
-        if (!JSONDatabaseReponse)
+        if (!(JSONDatabaseReponse.equals("")))
         {
             return JSONDatabaseReponse;	
         }
