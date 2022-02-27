@@ -133,9 +133,9 @@ public class RequestHandler {
     	}
 		
     }
-	
+	*/
 	public static void main(String[] args) {
 		SpringApplication.run(RequestHandler.class, args);
 	}
-	*/
+
 }
