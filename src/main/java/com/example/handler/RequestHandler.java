@@ -144,7 +144,8 @@ public class RequestHandler {
 		SpringApplication webapp = new SpringApplication(RequestHandler.class);
 		if (System.getenv("PORT") != null) 
 			webapp.setDefaultProperties(Collections.singletonMap("server.port", System.getenv("PORT")));
-
+		webapp.run(args);
+		
 	}
 
 }
