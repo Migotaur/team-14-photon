@@ -3,7 +3,6 @@ package com.example.handler;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class SQLDatabaseConnection {
 
