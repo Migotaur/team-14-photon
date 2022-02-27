@@ -32,7 +32,7 @@ public class RequestHandler {
 	String index() {
 		return "index.html";
 	}
-	/*
+	
     private String handleCreatePlayerRequest(JsonNode newPlayer)
     {
     	Player p;
@@ -133,7 +133,7 @@ public class RequestHandler {
     	}
 		
     }
-	*/
+	
 	public static void main(String[] args) {
 		SpringApplication.run(RequestHandler.class, args);
 	}
