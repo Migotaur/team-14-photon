@@ -6,11 +6,15 @@ public class Game {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //Opens Splash Screen as own window, then opens the game
+        JFrame splashFrame = new JFrame();
+        Splash.FullSplash(splashFrame, 1500, 1000, "logo.jpg", 3000);
+        splashFrame.dispose();
+
+        //Code to show player entry screen
         JFrame frame = new JFrame();
-        Splash.FullSplash(frame, 1500, 1000, "logo.jpg", 2000);
         PlayerEntryScreen test = new PlayerEntryScreen();
-        
-        frame.setSize(1500, 1000);
+        frame.setSize(1000, 750);
         frame.setVisible(true);
         frame.add(test);
         
