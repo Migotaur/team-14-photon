@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,7 +38,6 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 		}
 		return players;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

@@ -30,10 +30,9 @@ public class RequestHandler {
 	
 	@GetMapping("/")
 	String index() {
-		System.out.println("Got here");
 		return "index.html";
 	}
-	
+	/*
     private String handleCreatePlayerRequest(JsonNode newPlayer)
     {
     	Player p;
@@ -138,5 +137,5 @@ public class RequestHandler {
 	public static void main(String[] args) {
 		SpringApplication.run(RequestHandler.class, args);
 	}
-
+	*/
 }
