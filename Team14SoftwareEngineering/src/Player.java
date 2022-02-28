@@ -1,37 +1,59 @@
-class Player
+package handler;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Player
 {	
-	int score, userID; // User ID will be initialized to 0 which may interfere with validating userID, if 0 is a valid userID.
+	int score; // User ID will be initialized to 0 which may interfere with validating userID, if 0 is a valid userID.
 	String userName;
+	
+	private int userID;
 	private String firstName;
-	private String lastName;
+	private String lastName;	
 	private String codeName;
 	
+	private static int currentId = 0;
+		
 	Player()
 	{}
 	
-	Player(int s, int i, String u)
+	Player(int id, int s, int i, String u)
 	{
 		score = s;
-		userID = i;
 		userName = u;
-		this.firstName = "";
-		this.lastName = "";
 		this.codeName = "";
+		this.userID = i;
 	}
 	
-	Player(Player p)
+	public Player(Player p)
 	{
 		score = p.getScore();
 		userID = p.getUserID();
 		userName = p.getUserName();
+		this.codeName = p.codeName;
 	}
 	
-	public Player(int id, String firstName, String lastName, String codeName)
+	@JsonCreator
+	public Player(
+			@JsonProperty("firstName") String firstName,
+			@JsonProperty("lastName") String lastName,
+			@JsonProperty("codename") String codeName,
+			@JsonProperty("playerID") int playerId)
 	{
-		this.userID = id;
+		System.out.println(String.format("ID being given to JSON Player constructor is %d", currentId));
+		this.userID = playerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.codeName = codeName;
+	}
+	
+	public Player(int id, String codename)
+	{
+		this.userID = id;
+		this.codeName = codename;
 	}
 	
 	public boolean hasValidPlayerinfo()
@@ -40,14 +62,13 @@ class Player
 		/*
 		 * player (
   		 * id INT,
-  		 * first_name VARCHAR(30),
-  		 * last_name VARCHAR(30),
-  		 * codename VARCHAR(30)
+  		 * codename VARCHAR(30),
+  		 * PRIMARY KEY(id)
   		 * );
 		 * */
 		
 		int maxStringSize = SQLDatabaseConnection.DATABASE_STRING_MAX_LENGTH;
-		if (this.firstName != "" && this.lastName != "" && this.codeName != "" && this.userID != 0)
+		if (this.firstName != "" && this.lastName != "" && this.codeName != "")
 			if (this.firstName.length() <= maxStringSize && this.lastName.length() <= maxStringSize && this.codeName.length() <= maxStringSize)
 				return true;
 			else
@@ -61,7 +82,7 @@ class Player
 		return score;
 	}
 	
-	int getUserID()
+	public int getUserID()
 	{
 		return userID;
 	}
@@ -88,26 +109,28 @@ class Player
 	
 	public static void main(String[] args)
 	{
-		System.out.println("This is a test");
+		Player p = new Player(0, "cicarter");
+		System.out.println(p.hashCode());
 	}
 	
 	public void print()
 	{
-		System.out.println(String.format("ID: %d FirstName: %s LastName: %s CodeName: %s", this.userID, this.firstName, this.lastName, this.codeName));
+		System.out.println(String.format("ID: %s FirstName: %s LastName: %s CodeName: %s", this.userID, this.firstName, this.lastName, this.codeName));
 	}
 	
-	public String getFirstName()
-	{
-		return this.firstName;
-	}
-	
-	public String getLastName()
-	{
-		return this.lastName;
-	}	
+
 	public String getCodeName()
 	{
 		return this.codeName;
-	}	
+	}
+	
+	
+	public String toJSON() throws JsonProcessingException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		String playerAsJSONString = mapper.writeValueAsString(this);
+		return playerAsJSONString;
+	}
+
 
 }
