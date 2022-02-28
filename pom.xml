@@ -53,7 +53,7 @@
 	                <assembleDirectory>target</assembleDirectory>
 	                <programs>
 	                    <program>
-	                        <mainClass>com.example.handler.RequestHandler</mainClass>
+	                        <mainClass>handler.RequestHandler</mainClass>
 	                        <name>webapp</name>
 	                    </program>
 	                </programs>
