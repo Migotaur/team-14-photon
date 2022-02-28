@@ -1,4 +1,4 @@
-package com.example.handler;
+package handler;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,7 +16,6 @@ public class SQLDatabaseConnection {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println("MESSAGE START HEREs");
 			e.printStackTrace();
 		}
 	}

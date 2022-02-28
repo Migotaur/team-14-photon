@@ -12,8 +12,6 @@
 					 <tr className="headerRow">
 					 	<th>Delete</th>
 					   <th>Player ID</th>
-					   <th>First Name</th>
-					   <th>Last Name</th>
 					   <th>Username</th>
 					 </tr>				
 				</tbody>
@@ -24,10 +22,8 @@
 		
 		<br><br><br>
 		<div>
-			 <label>First name:</label><br>
-			 <input type="text" id="firstName"><br>
-			 <label>Last name:</label><br>
-			 <input type="text" id="lastName"><br>
+			 <label>Player ID:</label><br>
+			 <input type="text" id="playerID"><br>
 			 <label>User name:</label><br>
 			 <input type="text" id="codename" ><br><br>
 			 <button onclick="createPlayer()" id="createPlayerButton">Create Player</button>
@@ -41,7 +37,7 @@
 		
 			function createConnectionToWebServer()
 			{
-				var serverCreatePlayerURL = "https://team14-laser-tag.herokuapp.com/createPlayer";
+				var serverCreatePlayerURL = "http://localhost:8080/createPlayer";
 				var httpRequest = new XMLHttpRequest();
 				httpRequest.open("POST", serverCreatePlayerURL, false);
 				httpRequest.onload = function () {
@@ -53,15 +49,13 @@
 			function createPlayer()
 			{
 				var serverConnection = createConnectionToWebServer();
-				var firstName = document.getElementById("firstName").value;
-				var lastName = document.getElementById("lastName").value;
+				var firstName = document.getElementById("playerID").value;
 				var codename = document.getElementById("codename").value;
 				
 				var data = JSON.stringify(
 						{"Request": "CreatePlayer",
 						"Player" : {
-							"firstName" : String(firstName),
-							"lastName" : String(lastName),
+							"playerID" : String(firstName),
 							"codename" : String(codename) }});
 				
 				serverConnection.setRequestHeader("Accept", "application/json");
@@ -90,7 +84,7 @@
 			
 			function enableCreatePlayerButton()
 			{
-				if (getTextFieldsNotEmpty().length == 3)
+				if (getTextFieldsNotEmpty().length == 2)
 				{
 					createPlayerButton.removeAttribute("disabled");
 				}
@@ -196,13 +190,10 @@
 							var x = document.createElement("INPUT");
 							x.setAttribute("type", "checkbox");
 							x.setAttribute("name", "PlayerFieldCheckbox");
-							x.addEventListener('click', enableDeleteButton)
+							x.addEventListener('click', enableDeleteButton);
 							row.insertCell(0).appendChild(x);
-							row.insertCell(1).innerHTML = playerObj['userID']
-							row.insertCell(2).innerHTML = playerObj['firstName']
-							row.insertCell(3).innerHTML = playerObj['lastName']
-							row.insertCell(4).innerHTML = playerObj['codeName']
-							
+							row.insertCell(1).innerHTML = playerObj['userID'];
+							row.insertCell(2).innerHTML = playerObj['codeName'];
 
 						})
 						

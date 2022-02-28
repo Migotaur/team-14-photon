@@ -73,7 +73,7 @@
 	        	<configuration>
 	        		<archive>
 	        			<manifest>
-	        				<mainClass>com.example.handler.RequestHandler</mainClass>
+	        				<mainClass>handler.RequestHandler</mainClass>
 	        			</manifest>
 	        		</archive>
 	        	</configuration>

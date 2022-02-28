@@ -1,4 +1,5 @@
-package com.example.handler;
+package handler;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,10 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 	
 	@JsonProperty("players")
-	private static Hashtable<String, Player> players = new Hashtable<>();
+	private static Hashtable<Integer, Player> players = new Hashtable<>();
 	
 	public PlayerSQLDatabasseConnection()
 	{
@@ -19,21 +21,19 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 		updatePlayerArray();
 	}
 	
-	private static Hashtable<String, Player> updatePlayerArray()
+	private static Hashtable<Integer, Player> updatePlayerArray()
 	{
 		
 		ResultSet playerQuery;
 		try {
-			playerQuery = SQLDatabaseConnection.getConnection().createStatement().executeQuery("SELECT * FROM player;");
+			playerQuery = SQLDatabaseConnection.getConnection().createStatement().executeQuery("SELECT * FROM players;");
 
 		players.clear();
 		while (playerQuery.next())
 		{
-			String playerId = playerQuery.getString("id");
-			String firstName = playerQuery.getString("first_name");
-			String lastName = playerQuery.getString("last_name");
+			int playerId = playerQuery.getInt("id");
 			String codeName = playerQuery.getString("codename");
-			Player p = new Player(playerId, firstName, lastName, codeName);
+			Player p = new Player(playerId, codeName);
 			players.put(p.getUserID(), p);
 		}
 		return players;
@@ -50,8 +50,8 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 			if (!players.containsKey(p.getUserID())) 
 			{
 				try {
-					String command = String.format("INSERT INTO player (id, first_name, last_name, codename)\n" + 
-							   "VALUES ('%s', '%s', '%s', '%s');", p.getUserID(), p.getFirstName(), p.getLastName(), p.getCodeName());
+					String command = String.format("INSERT INTO players (id, codename)\n" + 
+							   "VALUES ('%s', '%s');", p.getUserID(), p.getCodeName());
 					getConnection().createStatement().executeUpdate(command);
 					updatePlayerArray();
 				} catch (SQLException e) {
@@ -99,7 +99,7 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 		if (this.hasValidConnection())
 		{
 			try {
-				String command = String.format("DELETE FROM player WHERE Id='%s'", primaryKey);
+				String command = String.format("DELETE FROM players WHERE Id='%s'", primaryKey);
 				PlayerSQLDatabasseConnection.getConnection().createStatement().executeUpdate(command);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -130,7 +130,7 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 		ResultSet playerQuery = null;
 		int count = -1;
 		try {
-			playerQuery = SQLDatabaseConnection.getConnection().createStatement().executeQuery("SELECT COUNT(*) FROM player;");
+			playerQuery = SQLDatabaseConnection.getConnection().createStatement().executeQuery("SELECT COUNT(*) FROM players;");
 			playerQuery.next();
 			count = playerQuery.getInt("count");
 		}
@@ -164,7 +164,7 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 		return playerAsJSONString;
 	}
 	
-	public Hashtable<String, Player> getPlayers()
+	public Hashtable<Integer, Player> getPlayers()
 	{
 		return players;
 	}
