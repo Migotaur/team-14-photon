@@ -32,7 +32,6 @@ public class SQLDatabaseConnection {
 	    String username = dbUri.getUserInfo().split(":")[0];
 	    String password = dbUri.getUserInfo().split(":")[1];
 	    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-	    //String dbUrl = "jdbc:postgresql://ckjgyhboppqkvq:2faf1ee460a9891cc529dcc7cf0a157cf2f1d5998b0b02712605d5d00090a3e6@ec2-184-73-243-101.compute-1.amazonaws.com:5432/dh48266umj9m1";
 	    System.out.println(String.format("Username: %s, Pass: %s", username, password));
 	    
 	    databaseConnection = DriverManager.getConnection(dbUrl, username, password);

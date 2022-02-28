@@ -33,6 +33,16 @@ public class Player
 		this.codeName = "";
 		this.userID = String.valueOf(id);
 	}
+
+//	Player(int s, String i, String u)
+//	{
+//		score = s;
+//		userID = i;
+//		userName = u;
+//		this.firstName = "";
+//		this.lastName = "";
+//		this.codeName = "";
+//	}
 	
 	public Player(Player p)
 	{
@@ -120,11 +130,11 @@ public class Player
 		userName = n;
 	}
 	
-	public static void main(String[] args)
-	{
-		Player p = new Player("test", "test", "test");
-		System.out.println(p.hashCode());
-	}
+//	public static void main(String[] args)
+//	{
+//		Player p = new Player("test", "test", "test");
+//		System.out.println(p.hashCode());
+//	}
 	
 	public void print()
 	{

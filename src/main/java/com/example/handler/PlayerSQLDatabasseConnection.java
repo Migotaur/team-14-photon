@@ -4,6 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import java.lang.reflect.Array;
+import java.sql.Connection;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,28 +76,28 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 	}
 	
 	
-	public static void main(String[] args) throws SQLException
-	{
-
-		PlayerSQLDatabasseConnection playdatabase = new PlayerSQLDatabasseConnection();
-		
-		if (playdatabase.hasValidConnection())
-		{
-			playdatabase.printTable();
-		}
-		else
-		{
-			System.out.println("Could not connect to database. Exiting");
-		}
-		
-		//playdatabase.deleteRecord("2");
-		//Player myself = new Player("Christopher", "Carter", "EngineeringIntrovert");
-		//playdatabase.AddPlayerToDatabase(myself);
-		//System.out.println("\n\n\n\n");
-		//playdatabase.printTable();
-		PlayerSQLDatabasseConnection.getConnection().close();
-		
-	}
+//	public static void main(String[] args) throws SQLException
+//	{
+//
+//		PlayerSQLDatabasseConnection playdatabase = new PlayerSQLDatabasseConnection();
+//
+//		if (playdatabase.hasValidConnection())
+//		{
+//			playdatabase.printTable();
+//		}
+//		else
+//		{
+//			System.out.println("Could not connect to database. Exiting");
+//		}
+//
+//		//playdatabase.deleteRecord("2");
+//		//Player myself = new Player("Christopher", "Carter", "EngineeringIntrovert");
+//		//playdatabase.AddPlayerToDatabase(myself);
+//		//System.out.println("\n\n\n\n");
+//		//playdatabase.printTable();
+//		PlayerSQLDatabasseConnection.getConnection().close();
+//
+//	}
 	
 	public boolean deleteRecord(String primaryKey)
 	{
