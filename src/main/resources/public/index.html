@@ -37,7 +37,7 @@
 		
 			function createConnectionToWebServer()
 			{
-				var serverCreatePlayerURL = "http://localhost:8080/createPlayer";
+				var serverCreatePlayerURL = "https://team14-laser-tag.herokuapp.com/createPlayer";
 				var httpRequest = new XMLHttpRequest();
 				httpRequest.open("POST", serverCreatePlayerURL, false);
 				httpRequest.onload = function () {
