@@ -1,10 +1,8 @@
+package frontend;
 import javax.swing.JFrame;
 
 public class Game {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         //Opens Splash Screen as own window, then opens the game
         JFrame splashFrame = new JFrame();

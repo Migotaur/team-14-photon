@@ -1,3 +1,4 @@
+package frontend;
 public class PlayerEntryScreen extends javax.swing.JPanel {
 
     /**

@@ -1,4 +1,4 @@
-package handler;
+package webpage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +20,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+
+import backend.Player;
+import backend.PlayerSQLDatabasseConnection;
 
 
 

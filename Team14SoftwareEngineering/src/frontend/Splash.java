@@ -1,3 +1,4 @@
+package frontend;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
