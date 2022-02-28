@@ -18,6 +18,10 @@ public class Game {
 	}
 
 	public static void main(String[] args) throws SQLException {
+		JFrame splashFrame = new JFrame();
+		Splash.FullSplash(splashFrame, 1500, 1000, "logo.jpg", 3000);
+		splashFrame.dispose();
+
         JFrame frame = new JFrame();
         PlayerEntryScreen test = new PlayerEntryScreen();
 
@@ -47,6 +51,8 @@ public class Game {
         playdatabase.AddPlayerToDatabase(testPlayer);
 		Player testPlayer2 = new Player("2", "James", "Bond", "Agent47");
 		playdatabase.AddPlayerToDatabase(testPlayer2);
+		Player testPlayer3 = new Player("3", "Robert", "Jackson", "Knight");
+		playdatabase.AddPlayerToDatabase(testPlayer3);
         playdatabase.printTable();
 
 		PlayerSQLDatabasseConnection.getConnection().close();
