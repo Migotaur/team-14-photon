@@ -43,20 +43,8 @@
 	</dependencies>
 
 	<build>
-
 		<plugins>
- <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-resources-plugin</artifactId>
-    <version>2.5</version>
-    <configuration>
-      <encoding>${project.build.sourceEncoding}</encoding>
-      <nonFilteredFileExtensions>
-        <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-      </nonFilteredFileExtensions>
-    </configuration>
-  </plugin>
-	      <plugin>
+			<plugin>
 	            <groupId>org.codehaus.mojo</groupId>
 	            <artifactId>appassembler-maven-plugin</artifactId>
 	            <version>2.0.0</version>
@@ -65,13 +53,10 @@
 	                <programs>
 	                    <program>
 	                        <mainClass>frontend.Game</mainClass>
-	                        <name>webapp</name>
+	                        <name>laser-tag</name>
 	                    </program>
-	                </programs>
-			<nonFilteredFileExtensions>
-        			<nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-	        	</nonFilteredFileExtensions>    
-		</configuration>
+	                </programs>  
+				</configuration>
 	            <executions>
 	                <execution>
 	                    <phase>package</phase>
@@ -81,6 +66,7 @@
 	                </execution>
 	            </executions>
 	        </plugin>
+		        
 	        <plugin>
 	        	<groupId>org.apache.maven.plugins</groupId>
 	        	<artifactId>maven-jar-plugin</artifactId>
@@ -89,43 +75,41 @@
 	        			<manifest>
 	        				<mainClass>frontend.Game</mainClass>
 	        			</manifest>
-	        		</archive>
-			<nonFilteredFileExtensions>
-        			<nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-	        	</nonFilteredFileExtensions>    
+	        		</archive>  
 	        	</configuration>
 	        </plugin>
-<plugin>
-    <artifactId>maven-resources-plugin</artifactId>
-    <version>3.0.2</version>
-    <executions>
-        <execution>
-            <id>copy-resource-one</id>
-            <phase>generate-sources</phase>
-            <goals>
-                <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-      <nonFilteredFileExtensions>
-        <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-      </nonFilteredFileExtensions>
-		
-                <outputDirectory>${basedir}/target/classes/frontend</outputDirectory>
-                <resources>
-                    <resource>
-                        <directory>${basedir}/src/main/resources/frontend</directory>
-                        <includes>
-                            <include>logo.jpg</include>
-			    <include>project.properties</include>
-                        </includes>
-                    </resource>
-                </resources>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
+	        
+			<plugin>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <version>3.0.2</version>
+			    <executions>
+			        <execution>
+			            <id>copy-resource-one</id>
+			            <phase>generate-sources</phase>
+			            <goals>
+			                <goal>copy-resources</goal>
+			            </goals>
+			            <configuration>
+			      			<nonFilteredFileExtensions>
+			        			<nonFilteredFileExtension>jpg</nonFilteredFileExtension>
+			     		 	</nonFilteredFileExtensions>
+					
+			                <outputDirectory>${basedir}/target/classes/frontend</outputDirectory>
+			                <resources>
+			                    <resource>
+			                        <directory>${basedir}/src/main/resources/frontend</directory>
+			                        <includes>
+			                            <include>logo.jpg</include>
+						    			<include>project.properties</include>
+			                        </includes>
+			                    </resource>
+			                </resources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			
 		</plugins>
-
 	</build>
 
 </project>
