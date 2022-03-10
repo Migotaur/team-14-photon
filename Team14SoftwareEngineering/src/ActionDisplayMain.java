@@ -1,7 +1,4 @@
-
 import javax.swing.JFrame;
-
-
 /**
  *
  * @author JIBAS POUDEL
