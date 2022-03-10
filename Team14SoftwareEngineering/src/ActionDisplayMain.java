@@ -1,8 +1,4 @@
 import javax.swing.JFrame;
-/**
- *
- * @author JIBAS POUDEL
- */
 public class ActionDisplayMain {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
