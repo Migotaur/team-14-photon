@@ -4,8 +4,9 @@ import javax.swing.JFrame;
 import java.util.Properties;
 import java.io.IOException;
 
-public class Game {
+public class Game implements KeyListener{
 	public static String resourceFolder;
+	boolean keyF5 = false;
 
 	public Game()
 	{
@@ -19,6 +20,22 @@ public class Game {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void keyPressed(KeyEvent e)
+	{
+	}
+
+	public void keyReleased(KeyEvent e)
+	{
+		switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_F5: keyF5 = true; break;
+		}
+	}
+
+	public void keyTyped(KeyEvent e)
+	{
 	}
 
 	public void startGame()
