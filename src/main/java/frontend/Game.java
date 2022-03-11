@@ -1,5 +1,6 @@
 package frontend;
 
+import java.awt.event.*;
 import javax.swing.JFrame;
 import java.util.Properties;
 import java.io.IOException;
