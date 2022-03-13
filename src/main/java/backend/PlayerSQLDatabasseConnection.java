@@ -111,7 +111,57 @@ public class PlayerSQLDatabasseConnection extends SQLDatabaseConnection{
 		else
 			return false;
 	}
-	
+
+	//Searches for a player by ID
+	public boolean idInDatabase(int id){
+		if (this.hasValidConnection())
+		{
+			if (!isPlayerArraySyncedToDatabasae())
+				updatePlayerArray();
+			for(Player p : players.values())
+			{
+				if(id == p.getUserID()){
+					return true;
+				}
+			}
+			return false;
+		}
+		return false;
+	}
+
+	//Searches for a player by Codename
+	public boolean codenameInDatabase(String codename){
+		if (this.hasValidConnection())
+		{
+			if (!isPlayerArraySyncedToDatabasae())
+				updatePlayerArray();
+			for(Player p : players.values())
+			{
+				if(codename.equals(p.getCodeName())){
+					return true;
+				}
+			}
+			return false;
+		}
+		return false;
+	}
+
+	public String getPlayerCodename(int id){
+		if (this.hasValidConnection())
+		{
+			if (!isPlayerArraySyncedToDatabasae())
+				updatePlayerArray();
+			for(Player p : players.values())
+			{
+				if(id == p.getUserID()){
+					return p.getCodeName();
+				}
+			}
+			return "";
+		}
+		return "";
+	}
+
 	public void printTable()
 	{
 		if (this.hasValidConnection())
