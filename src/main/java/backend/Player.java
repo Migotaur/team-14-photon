@@ -1,20 +1,23 @@
-package backend;
-
-
+package com.example.handler;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest; 
+import java.security.NoSuchAlgorithmException;
 
 public class Player
 {	
 	int score; // User ID will be initialized to 0 which may interfere with validating userID, if 0 is a valid userID.
 	String userName;
 	
-	private int userID;
+	private String userID;
 	private String firstName;
 	private String lastName;	
 	private String codeName;
+	private String teamColor;
 	
 	private static int currentId = 0;
 		
@@ -24,9 +27,13 @@ public class Player
 	Player(int id, int s, int i, String u)
 	{
 		score = s;
+		userID = String.valueOf(i);
 		userName = u;
+		this.firstName = "";
+		this.lastName = "";
 		this.codeName = "";
-		this.userID = i;
+		this.teamColor = "";
+		this.userID = String.valueOf(id);
 	}
 	
 	public Player(Player p)
@@ -34,26 +41,31 @@ public class Player
 		score = p.getScore();
 		userID = p.getUserID();
 		userName = p.getUserName();
+		this.firstName = p.firstName;
+		this.lastName = p.lastName;
 		this.codeName = p.codeName;
 	}
+	
+	// Thoughs before slepp id sjould not be given in constructor
 	
 	@JsonCreator
 	public Player(
 			@JsonProperty("firstName") String firstName,
 			@JsonProperty("lastName") String lastName,
-			@JsonProperty("codename") String codeName,
-			@JsonProperty("playerID") int playerId)
+			@JsonProperty("codename") String codeName)
 	{
 		System.out.println(String.format("ID being given to JSON Player constructor is %d", currentId));
-		this.userID = playerId;
+		this.userID = createPlayerUniqueID(firstName, lastName, codeName);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.codeName = codeName;
 	}
 	
-	public Player(int id, String codename)
+	public Player(String id, String firstname, String lastName, String codename)
 	{
 		this.userID = id;
+		this.firstName = firstname;
+		this.lastName = lastName;
 		this.codeName = codename;
 	}
 	
@@ -63,13 +75,15 @@ public class Player
 		/*
 		 * player (
   		 * id INT,
+  		 * first_name VARCHAR(30),
+  		 * last_name VARCHAR(30),
   		 * codename VARCHAR(30),
   		 * PRIMARY KEY(id)
   		 * );
 		 * */
 		
 		int maxStringSize = SQLDatabaseConnection.DATABASE_STRING_MAX_LENGTH;
-		if (this.firstName != "" && this.lastName != "" && this.codeName != "")
+		if (this.firstName != "" && this.lastName != "" && this.codeName != "" && !this.userID.isEmpty())
 			if (this.firstName.length() <= maxStringSize && this.lastName.length() <= maxStringSize && this.codeName.length() <= maxStringSize)
 				return true;
 			else
@@ -83,7 +97,7 @@ public class Player
 		return score;
 	}
 	
-	public int getUserID()
+	public String getUserID()
 	{
 		return userID;
 	}
@@ -98,7 +112,7 @@ public class Player
 		score = s;
 	}
 	
-	void setUserID(int i)
+	void setUserID(String i)
 	{
 		userID = i;
 	}
@@ -110,7 +124,7 @@ public class Player
 	
 	public static void main(String[] args)
 	{
-		Player p = new Player(0, "cicarter");
+		Player p = new Player("test", "test", "test");
 		System.out.println(p.hashCode());
 	}
 	
@@ -119,12 +133,50 @@ public class Player
 		System.out.println(String.format("ID: %s FirstName: %s LastName: %s CodeName: %s", this.userID, this.firstName, this.lastName, this.codeName));
 	}
 	
-
+	public String getFirstName()
+	{
+		return this.firstName;
+	}
+	
+	public String getLastName()
+	{
+		return this.lastName;
+	}	
 	public String getCodeName()
 	{
 		return this.codeName;
 	}
+
+	//create teams
+	public String setTeam(String team)
+	{
+		teamColor = team;
+	}
 	
+	public String getTeam()
+	{
+		return this.teamColor;
+	}
+	
+	private static String createPlayerUniqueID(String firstName, String lastName, String codename)
+	{
+		String playerKeyString = String.format("%s:%s:%s", firstName, lastName, codename);
+		MessageDigest md = null;
+		
+		try {
+			 md = MessageDigest.getInstance("SHA-256"); 
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			e.printStackTrace();
+		}
+        byte[] bytes = md.digest(playerKeyString.getBytes(StandardCharsets.UTF_8));
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes)
+        	result.append(String.format("%02x", b));
+        return result.toString();
+
+	}
 	
 	public String toJSON() throws JsonProcessingException
 	{
