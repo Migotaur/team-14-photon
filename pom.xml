@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Team14-WebApp</artifactId>
+	<artifactId>Team14-Laser-Tag</artifactId>
 	<version>0.0.1</version>
 	<name>Team14-Webapp</name>
-	<description>Laser Tag Web App for Team 14</description>
+	<description>Laser Tag Application for Team 14</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -35,81 +35,38 @@
 		<dependency>
       		<groupId>org.springframework.boot</groupId>
       		<artifactId>spring-boot-starter-web</artifactId>
-    	</dependency>
-		<dependency>
-      		<groupId>com.zaxxer</groupId>
-      		<artifactId>HikariCP</artifactId>
-    	</dependency>
+	    	</dependency>
+			<dependency>
+	      		<groupId>com.zaxxer</groupId>
+	      		<artifactId>HikariCP</artifactId>
+	    	</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-	            <groupId>org.codehaus.mojo</groupId>
-	            <artifactId>appassembler-maven-plugin</artifactId>
-	            <version>2.0.0</version>
-	            <configuration>
-	                <assembleDirectory>target</assembleDirectory>
-	                <programs>
-	                    <program>
-	                        <mainClass>frontend.Game</mainClass>
-	                        <name>laser-tag</name>
-	                    </program>
-	                </programs>  
-				</configuration>
-	            <executions>
-	                <execution>
-	                    <phase>package</phase>
-	                    <goals>
-	                        <goal>assemble</goal>
-	                    </goals>
-	                </execution>
-	            </executions>
-	        </plugin>
-		        
-	        <plugin>
-	        	<groupId>org.apache.maven.plugins</groupId>
-	        	<artifactId>maven-jar-plugin</artifactId>
-	        	<configuration>
-	        		<archive>
-	        			<manifest>
-	        				<mainClass>frontend.Game</mainClass>
-	        			</manifest>
-	        		</archive>  
-	        	</configuration>
-	        </plugin>
-	        
-			<plugin>
-			    <artifactId>maven-resources-plugin</artifactId>
-			    <version>3.0.2</version>
-			    <executions>
-			        <execution>
-			            <id>copy-resource-one</id>
-			            <phase>generate-sources</phase>
-			            <goals>
-			                <goal>copy-resources</goal>
-			            </goals>
-			            <configuration>
-			      			<nonFilteredFileExtensions>
-			        			<nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-			     		 	</nonFilteredFileExtensions>
-					
-			                <outputDirectory>${basedir}/target/classes/frontend</outputDirectory>
-			                <resources>
-			                    <resource>
-			                        <directory>${basedir}/src/main/resources/frontend</directory>
-			                        <includes>
-			                            <include>logo.jpg</include>
-						    			<include>project.properties</include>
-			                        </includes>
-			                    </resource>
-			                </resources>
-			            </configuration>
-			        </execution>
-			    </executions>
-			</plugin>
-			
-		</plugins>
-	</build>
 
+	<build>
+	  <plugins>
+	    <plugin>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <configuration>
+		<archive>
+		  <manifest>
+		    <mainClass>frontend.Game</mainClass>
+		  </manifest>
+		</archive>
+		<descriptorRefs>
+		  <descriptorRef>jar-with-dependencies</descriptorRef>
+		</descriptorRefs>
+	      </configuration>
+	      <executions>
+		<execution>
+		  <id>make-assembly</id> <!-- this is used for inheritance merges -->
+		  <phase>package</phase> <!-- bind to the packaging phase -->
+		  <goals>
+		    <goal>single</goal>
+		  </goals>
+		</execution>
+	      </executions>
+	    </plugin>
+	  </plugins>
+	</build>
 </project>

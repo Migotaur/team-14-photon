@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Splash {
     
@@ -40,6 +41,31 @@ public class Splash {
         frame.repaint();
     }
 
+    static public InputStream getFile(String fileName)
+    {
+            //Get file from resources folder
+            ClassLoader classLoader = (new CombatClock()).getClass().getClassLoader();
+
+            InputStream stream = classLoader.getResourceAsStream(fileName);
+
+            try
+            {
+                if (stream == null)
+                {
+                    throw new Exception("Cannot find file " + fileName);
+                }
+
+                return stream;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+
+                System.exit(1);
+            }
+
+            return null;
+    }
+    
     public static void FullSplash(JFrame frame, int width, int height, String imageName, int time){  //Alternative method to display splash screen, but messes with the thread.
         ImageIcon icon = new ImageIcon(loadImage(imageName).getScaledInstance(width, height, Image.SCALE_DEFAULT));
         frame.setLayout(new FlowLayout());
@@ -64,10 +90,9 @@ public class Splash {
         frame.repaint();
     }
 
-    static public Image loadImage(String fileName){ //Function for retrieving images from files.
-		System.out.println(fileName);
+    static public Image loadImage(String fileName){ //Function for retrieving images from file
 		try{
-			return ImageIO.read(new File(fileName));
+			return ImageIO.read(getFile(fileName));
 		} catch(IOException e){
 			e.printStackTrace(System.err);
 			System.exit(1);

@@ -47,7 +47,7 @@ public class Game implements KeyListener{
 	{
 	        //Opens Splash Screen as own window, then opens the game
         	JFrame splashFrame = new JFrame();
-      		Splash.FullSplash(splashFrame, 1500, 1000, "/frontend/logo.jpg", 3000);
+      		Splash.FullSplash(splashFrame, 1500, 1000, "frontend/logo.jpg", 3000);
 			splashFrame.dispose();
 
         	//Code to show player entry screen
