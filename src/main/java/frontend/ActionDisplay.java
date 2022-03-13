@@ -1,12 +1,16 @@
 package frontend;
 
 import javax.swing.JFrame;
+import java.util.ArrayList;
+import backend.Player;
 
 public class ActionDisplay extends javax.swing.JPanel {
 
+    ArrayList<Player> players;
     public static void main(String[] args) {
+        ArrayList<backend.Player> test_players = new ArrayList<Player>();
         JFrame frame = new JFrame();
-        ActionDisplay test = new ActionDisplay();
+        ActionDisplay test = new ActionDisplay(test_players);
         
         frame.setSize(700, 500);
         frame.setVisible(true);
@@ -16,11 +20,17 @@ public class ActionDisplay extends javax.swing.JPanel {
     /**
      * Creates new form AcitonDisplay
      */
-    public ActionDisplay() {
+    public ActionDisplay(ArrayList<Player> players) {
         initComponents();
+        this.players = players;
+        playerList();
     }
 
-    @SuppressWarnings("unchecked")
+    private void playerList(){
+        for(Player p : this.players){
+            p.print();
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 

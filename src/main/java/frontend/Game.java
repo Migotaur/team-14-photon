@@ -25,14 +25,18 @@ public class Game implements KeyListener{
 	
 	public void keyPressed(KeyEvent e)
 	{
+		if(e.getKeyCode() == KeyEvent.VK_F5){
+			System.out.println("The time is now");
+		}
 	}
 
 	public void keyReleased(KeyEvent e)
 	{
 		switch(e.getKeyCode())
 		{
-			case KeyEvent.VK_F5: keyF5 = true; break;
+			case KeyEvent.VK_F5: System.out.println("The time is now");break;
 		}
+		System.out.println("The time is now");
 	}
 
 	public void keyTyped(KeyEvent e)
@@ -44,19 +48,19 @@ public class Game implements KeyListener{
 	        //Opens Splash Screen as own window, then opens the game
         	JFrame splashFrame = new JFrame();
       		Splash.FullSplash(splashFrame, 1500, 1000, resourceFolder + "/logo.jpg", 3000);
-		splashFrame.dispose();
+			splashFrame.dispose();
 
         	//Code to show player entry screen
         	JFrame frame = new JFrame();
         	PlayerEntryScreen test = new PlayerEntryScreen();
         	frame.setSize(1000, 750);
         	frame.setVisible(true);
-        	frame.add(test);
+        	frame.add(test);		
 	}
 
 
     public static void main(String[] args) {
         Game game = new Game();
-	game.startGame();
+		game.startGame();
     }
 }
