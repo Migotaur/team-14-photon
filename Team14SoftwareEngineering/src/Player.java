@@ -17,6 +17,7 @@ public class Player
 	private String firstName;
 	private String lastName;	
 	private String codeName;
+	private String teamColor;
 	
 	private static int currentId = 0;
 		
@@ -31,6 +32,7 @@ public class Player
 		this.firstName = "";
 		this.lastName = "";
 		this.codeName = "";
+		this.teamColor = "";
 		this.userID = String.valueOf(id);
 	}
 	
@@ -144,7 +146,17 @@ public class Player
 	{
 		return this.codeName;
 	}
+
+	//create teams
+	public String setTeam(String team)
+	{
+		teamColor = team;
+	}
 	
+	public String getTeam()
+	{
+		return this.teamColor;
+	}
 	
 	private static String createPlayerUniqueID(String firstName, String lastName, String codename)
 	{
