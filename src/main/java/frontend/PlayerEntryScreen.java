@@ -1,22 +1,47 @@
 package frontend;
 import backend.*;
 import javax.swing.JTextField;
-import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
-public class PlayerEntryScreen extends javax.swing.JPanel {
+import java.util.ArrayList;
+import java.awt.event.*;
+
+public class PlayerEntryScreen extends javax.swing.JPanel implements KeyListener{
 
     //Database Connection and Player List(Global)
     PlayerSQLDatabasseConnection DB = new PlayerSQLDatabasseConnection();
     ArrayList<Player> players;
     int MAX_TEAM_PLAYERS = 14;
+    int green_players;
+    int red_players;
 
     public PlayerEntryScreen() {
         initComponents();
         addListeners();
 
         players = new ArrayList<Player>();
+        this.addKeyListener(this);
+
+        this.green_players = 0;
+        this.red_players = 0;
     }
-                            
+    
+    public void keyPressed(KeyEvent e)
+	{
+    }
+
+	public void keyReleased(KeyEvent e)
+	{
+		switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_F5: goToPlayActionScreen();break;
+		}
+	}
+
+	public void keyTyped(KeyEvent e)
+	{
+	}
+
     private void addListeners(){
         //Array List containing all id fields
         ArrayList<JTextField> id_fields = new ArrayList<JTextField>();
@@ -82,6 +107,8 @@ public class PlayerEntryScreen extends javax.swing.JPanel {
 
         //Action Handling for ID Fields
         for(JTextField id_field : id_fields){
+            id_field.addKeyListener(this);
+
             id_field.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                    //Checks if text is an integer, then querys database for that id
@@ -161,6 +188,23 @@ public class PlayerEntryScreen extends javax.swing.JPanel {
         }   
     }
 
+    private void goToPlayActionScreen(){
+        //Does not advance to screen if teams are uneven
+        if(this.green_players == this.red_players && !players.isEmpty()){
+            javax.swing.JFrame parentFrame = (javax.swing.JFrame) SwingUtilities.getWindowAncestor(this);
+            parentFrame.dispose();
+
+            javax.swing.JFrame frame = new javax.swing.JFrame();
+            ActionDisplay test = new ActionDisplay(players);
+        
+            frame.setSize(700, 500);
+            frame.setVisible(true);
+            frame.add(test);
+        }
+        else{
+            label1.setText("Unable to start game. Make sure teams are even with at least one player");
+        }
+    }
 //Adds Player to Game and sets their team
 private void addPlayer(Player p, int index){
     //If codename is not in player list, add it to player list (Prevent Duplicates)
@@ -173,9 +217,11 @@ private void addPlayer(Player p, int index){
     //Based on index of where ID Field was, sets the team for that Player
     if(index > MAX_TEAM_PLAYERS -1){
         System.out.println("Player has been assigned to the Green Team");
+        this.green_players++;
     }
     else{
         System.out.println("Player has been assigned to the Red Team");
+        this.red_players++;
     }
 }
 
