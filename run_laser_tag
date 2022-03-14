@@ -1,4 +1,0 @@
-#!/bin/sh
-
-mvn package
-sh target/bin/laser-tag
