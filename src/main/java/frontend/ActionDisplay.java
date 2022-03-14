@@ -2,6 +2,8 @@ package frontend;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import backend.Player;
+import javax.swing.JLabel;
+import java.awt.Color;
 
 public class ActionDisplay extends javax.swing.JPanel {
 
@@ -26,8 +28,40 @@ public class ActionDisplay extends javax.swing.JPanel {
     }
 
     private void playerList(){
+        //Create list of players for each team
+        ArrayList<JLabel> red_players = new ArrayList<JLabel>();
+        ArrayList<JLabel> green_players = new ArrayList<JLabel>();
+
+        //Create empty labels reserved for 15 members each
+        for(int i = 0; i < 14; i++){
+            red_players.add(new JLabel());
+            green_players.add(new JLabel());
+        }
+        
+        int red_counter = 0;
+        int green_counter = 0;
+
         for(Player p : this.players){
-            p.print();
+            
+
+            if(p.getTeam().equals("red")){
+                JLabel playerLabel = red_players.get(red_counter);
+                playerLabel.setForeground(Color.RED);
+                playerLabel.setText(p.getCodeName() + "     " + p.getScore());
+                playerLabel.setBounds(75,(75 + (red_counter * 20)), 200,30);
+                jPanel1.add(playerLabel);
+
+                red_counter++;
+            }
+            else{
+                JLabel playerLabel = green_players.get(green_counter);
+                playerLabel.setForeground(Color.GREEN);
+                playerLabel.setText(p.getCodeName() + "     " + p.getScore());
+                playerLabel.setBounds(500,(75 + (green_counter * 20)), 200,30);
+                jPanel1.add(playerLabel);
+
+                green_counter++;
+            }
         }
     }                          
     private void initComponents() {

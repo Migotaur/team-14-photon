@@ -1,24 +1,21 @@
-package com.example.handler;
+package backend;
+
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest; 
-import java.security.NoSuchAlgorithmException;
 
 public class Player
 {	
 	int score; // User ID will be initialized to 0 which may interfere with validating userID, if 0 is a valid userID.
 	String userName;
 	
-	private String userID;
+	private int userID;
 	private String firstName;
 	private String lastName;	
 	private String codeName;
 	private String teamColor;
-	
 	private static int currentId = 0;
 		
 	Player()
@@ -27,13 +24,9 @@ public class Player
 	Player(int id, int s, int i, String u)
 	{
 		score = s;
-		userID = String.valueOf(i);
 		userName = u;
-		this.firstName = "";
-		this.lastName = "";
 		this.codeName = "";
-		this.teamColor = "";
-		this.userID = String.valueOf(id);
+		this.userID = i;
 	}
 	
 	public Player(Player p)
@@ -41,32 +34,28 @@ public class Player
 		score = p.getScore();
 		userID = p.getUserID();
 		userName = p.getUserName();
-		this.firstName = p.firstName;
-		this.lastName = p.lastName;
 		this.codeName = p.codeName;
 	}
-	
-	// Thoughs before slepp id sjould not be given in constructor
 	
 	@JsonCreator
 	public Player(
 			@JsonProperty("firstName") String firstName,
 			@JsonProperty("lastName") String lastName,
-			@JsonProperty("codename") String codeName)
+			@JsonProperty("codename") String codeName,
+			@JsonProperty("playerID") int playerId)
 	{
 		System.out.println(String.format("ID being given to JSON Player constructor is %d", currentId));
-		this.userID = createPlayerUniqueID(firstName, lastName, codeName);
+		this.userID = playerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.codeName = codeName;
 	}
 	
-	public Player(String id, String firstname, String lastName, String codename)
+	public Player(int id, String codename)
 	{
 		this.userID = id;
-		this.firstName = firstname;
-		this.lastName = lastName;
 		this.codeName = codename;
+		this.teamColor = "";
 	}
 	
 	public boolean hasValidPlayerinfo()
@@ -75,15 +64,13 @@ public class Player
 		/*
 		 * player (
   		 * id INT,
-  		 * first_name VARCHAR(30),
-  		 * last_name VARCHAR(30),
   		 * codename VARCHAR(30),
   		 * PRIMARY KEY(id)
   		 * );
 		 * */
 		
 		int maxStringSize = SQLDatabaseConnection.DATABASE_STRING_MAX_LENGTH;
-		if (this.firstName != "" && this.lastName != "" && this.codeName != "" && !this.userID.isEmpty())
+		if (this.firstName != "" && this.lastName != "" && this.codeName != "")
 			if (this.firstName.length() <= maxStringSize && this.lastName.length() <= maxStringSize && this.codeName.length() <= maxStringSize)
 				return true;
 			else
@@ -91,13 +78,20 @@ public class Player
 		else
 			return false;
 	}
-	
-	int getScore()
+	public void setTeam(String team){
+		this.teamColor = team;
+	}
+
+	public String getTeam(){
+		return this.teamColor;
+	}
+
+	public int getScore()
 	{
 		return score;
 	}
 	
-	public String getUserID()
+	public int getUserID()
 	{
 		return userID;
 	}
@@ -107,12 +101,12 @@ public class Player
 		return userName;
 	}
 	
-	void setScore(int s)
+	public void setScore(int s)
 	{
 		score = s;
 	}
 	
-	void setUserID(String i)
+	void setUserID(int i)
 	{
 		userID = i;
 	}
@@ -124,59 +118,21 @@ public class Player
 	
 	public static void main(String[] args)
 	{
-		Player p = new Player("test", "test", "test");
+		Player p = new Player(0, "cicarter");
 		System.out.println(p.hashCode());
 	}
 	
 	public void print()
 	{
-		System.out.println(String.format("ID: %s FirstName: %s LastName: %s CodeName: %s", this.userID, this.firstName, this.lastName, this.codeName));
+		System.out.println(String.format("ID: %s CodeName: %s Team: %s", this.userID, this.codeName, this.teamColor));
 	}
 	
-	public String getFirstName()
-	{
-		return this.firstName;
-	}
-	
-	public String getLastName()
-	{
-		return this.lastName;
-	}	
+
 	public String getCodeName()
 	{
 		return this.codeName;
 	}
-
-	//create teams
-	public String setTeam(String team)
-	{
-		teamColor = team;
-	}
 	
-	public String getTeam()
-	{
-		return this.teamColor;
-	}
-	
-	private static String createPlayerUniqueID(String firstName, String lastName, String codename)
-	{
-		String playerKeyString = String.format("%s:%s:%s", firstName, lastName, codename);
-		MessageDigest md = null;
-		
-		try {
-			 md = MessageDigest.getInstance("SHA-256"); 
-		}
-		catch (NoSuchAlgorithmException e)
-		{
-			e.printStackTrace();
-		}
-        byte[] bytes = md.digest(playerKeyString.getBytes(StandardCharsets.UTF_8));
-        StringBuilder result = new StringBuilder();
-        for (byte b : bytes)
-        	result.append(String.format("%02x", b));
-        return result.toString();
-
-	}
 	
 	public String toJSON() throws JsonProcessingException
 	{

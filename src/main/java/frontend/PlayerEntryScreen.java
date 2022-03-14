@@ -200,6 +200,7 @@ public class PlayerEntryScreen extends javax.swing.JPanel implements KeyListener
             frame.setSize(700, 500);
             frame.setVisible(true);
             frame.add(test);
+            frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         }
         else{
             label1.setText("Unable to start game. Make sure teams are even with at least one player");
@@ -216,11 +217,11 @@ private void addPlayer(Player p, int index){
 
     //Based on index of where ID Field was, sets the team for that Player
     if(index > MAX_TEAM_PLAYERS -1){
-        System.out.println("Player has been assigned to the Green Team");
+        playerMatch.setTeam("green");;
         this.green_players++;
     }
     else{
-        System.out.println("Player has been assigned to the Red Team");
+        playerMatch.setTeam("red");
         this.red_players++;
     }
 }
