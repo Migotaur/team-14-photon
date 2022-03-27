@@ -5,9 +5,14 @@ import backend.Player;
 import javax.swing.JLabel;
 import java.awt.Color;
 
-public class ActionDisplay extends javax.swing.JPanel {
+public class ActionDisplay extends javax.swing.JPanel{
 
     ArrayList<Player> players;
+    ArrayList<JLabel> red_players = new ArrayList<JLabel>();
+    ArrayList<JLabel> green_players = new ArrayList<JLabel>();
+    int redScore = 1000000;
+
+    int greenScore = 1000000;
     public static void main(String[] args) {
         ArrayList<backend.Player> test_players = new ArrayList<Player>();
         JFrame frame = new JFrame();
@@ -16,6 +21,7 @@ public class ActionDisplay extends javax.swing.JPanel {
         frame.setSize(700, 500);
         frame.setVisible(true);
         frame.add(test);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -29,41 +35,45 @@ public class ActionDisplay extends javax.swing.JPanel {
 
     private void playerList(){
         //Create list of players for each team
-        ArrayList<JLabel> red_players = new ArrayList<JLabel>();
-        ArrayList<JLabel> green_players = new ArrayList<JLabel>();
+        //ArrayList<JLabel> red_players = new ArrayList<JLabel>();
+        //ArrayList<JLabel> green_players = new ArrayList<JLabel>();
 
         //Create empty labels reserved for 15 members each
-        for(int i = 0; i < 14; i++){
-            red_players.add(new JLabel());
-            green_players.add(new JLabel());
+        for(int i = 0; i < 15; i++){
+            this.red_players.add(new JLabel());
+            this.green_players.add(new JLabel());
         }
         
         int red_counter = 0;
         int green_counter = 0;
 
+        //Assigns a jLabel for each player in the game
         for(Player p : this.players){
             
 
             if(p.getTeam().equals("red")){
-                JLabel playerLabel = red_players.get(red_counter);
+                JLabel playerLabel = this.red_players.get(red_counter);
+                p.setLabel(playerLabel);
                 playerLabel.setForeground(Color.RED);
                 playerLabel.setText(p.getCodeName() + "     " + p.getScore());
-                playerLabel.setBounds(75,(75 + (red_counter * 20)), 200,30);
+                playerLabel.setBounds(60,(75 + (red_counter * 20)), 200,30);
                 jPanel1.add(playerLabel);
-
+    
                 red_counter++;
             }
             else{
-                JLabel playerLabel = green_players.get(green_counter);
+                JLabel playerLabel = this.green_players.get(green_counter);
+                p.setLabel(playerLabel);
                 playerLabel.setForeground(Color.GREEN);
                 playerLabel.setText(p.getCodeName() + "     " + p.getScore());
-                playerLabel.setBounds(500,(75 + (green_counter * 20)), 200,30);
+                playerLabel.setBounds(410,(75 + (green_counter * 20)), 200,30);
                 jPanel1.add(playerLabel);
 
                 green_counter++;
             }
         }
-    }                          
+    }  
+    
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
@@ -81,12 +91,12 @@ public class ActionDisplay extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("RED TEAM");
+        jLabel1.setText("RED TEAM: " + redScore);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("GREEN TEAM");
+        jLabel2.setText("GREEN TEAM: " + greenScore);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Current Game Action", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -106,14 +116,15 @@ public class ActionDisplay extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Time Remaining:");
+        jLabel3.setVisible(false);
 
        
        
         CombatClock clock = new CombatClock();
         clock.setForeground(new java.awt.Color(255, 255, 255));
         clock.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        clock.StartCombat();
-        clock.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        clock.StartWarmup();
+        clock.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,9 +132,9 @@ public class ActionDisplay extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()

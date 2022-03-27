@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.swing.JLabel;
 
 public class Player
 {	
@@ -17,6 +18,7 @@ public class Player
 	private String codeName;
 	private String teamColor;
 	private static int currentId = 0;
+	JLabel playerLabel;
 		
 	Player()
 	{}
@@ -116,6 +118,9 @@ public class Player
 		userName = n;
 	}
 	
+	public void setLabel(JLabel label){
+		playerLabel = label;
+	}
 	public static void main(String[] args)
 	{
 		Player p = new Player(0, "cicarter");
@@ -127,6 +132,9 @@ public class Player
 		System.out.println(String.format("ID: %s CodeName: %s Team: %s", this.userID, this.codeName, this.teamColor));
 	}
 	
+	public JLabel getLabel(){
+		return playerLabel;
+	}
 
 	public String getCodeName()
 	{
