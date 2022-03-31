@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import java.util.Properties;
 import java.io.IOException;
 import backend.*;
+
 public class Game implements KeyListener{
 	public static String resourceFolder;
 	boolean keyF5 = false;
@@ -47,14 +48,17 @@ public class Game implements KeyListener{
 	{
 	        //Opens Splash Screen as own window, then opens the game
         	JFrame splashFrame = new JFrame();
+			splashFrame.setTitle("Photon");
       		Splash.FullSplash(splashFrame, 1500, 1000, "frontend/logo.jpg", 3000);
 			splashFrame.dispose();
 
         	//Code to show player entry screen
         	JFrame frame = new JFrame();
         	PlayerEntryScreen test = new PlayerEntryScreen();
+			frame.setTitle("Photon - Game Setup");
         	frame.setSize(1000, 750);
         	frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         	frame.add(test);		
 	}
 
