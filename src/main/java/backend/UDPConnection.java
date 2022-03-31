@@ -6,25 +6,29 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class UDPConnection {
 
 	private int portNumber;
 	private InetAddress ipAddress;
-	public DatagramSocket socket;
+	private DatagramSocket socket;
+	private String socketData = "";
 	
 	public UDPConnection(int portNumber, String ipAddress) throws UnknownHostException
 	{
 		this.ipAddress = InetAddress.getByName(ipAddress);
 		this.portNumber = portNumber;
-		this.socket = createDatagramSocket();
+		this.socket = createDatagramSocket(this.portNumber, this.ipAddress);
 	}
 	
 	
-	public static DatagramSocket createDatagramSocket()
+	public static DatagramSocket createDatagramSocket(int portNumber, InetAddress ipAddress)
 	{
 		try {
-			return new DatagramSocket();
+			System.out.println(String.format("Bind %s on port %d", ipAddress.toString(), portNumber));
+			return new DatagramSocket(portNumber, ipAddress);
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
@@ -46,21 +50,22 @@ public class UDPConnection {
 		}
 	}
 	
-	public String receiveData()
+	public void receiveData()
 	{
+		System.out.println(String.format("Holding until data is received at %d", this.portNumber));
 		// Create byte array for holding received data
 		byte[] receivedData = new byte[1024];
 		DatagramPacket receivedPacket = new DatagramPacket(receivedData, receivedData.length);
 		try {
 			this.socket.receive(receivedPacket);
-			return new String(receivedPacket.getData());
+			receivedData = receivedPacket.getData();
+			this.socketData = new String(receivedData, 0, receivedPacket.getLength());
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "";
+			this.socketData = "";
 		}
 		
 	}
-	
 	
 	public int getPort() 
 	{
@@ -76,5 +81,15 @@ public class UDPConnection {
 	{
 
 		
+	}
+	
+	public String getSocketData()
+	{
+		return this.socketData;
+	}
+	
+	public void closeSocket()
+	{
+			this.socket.close();
 	}
 }

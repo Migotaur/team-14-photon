@@ -1,5 +1,6 @@
 package frontend;
 import javax.swing.JFrame;
+import backend.UDPHandler;
 import java.util.ArrayList;
 import backend.Player;
 import javax.swing.JLabel;
@@ -10,9 +11,12 @@ public class ActionDisplay extends javax.swing.JPanel{
     ArrayList<Player> players;
     ArrayList<JLabel> red_players = new ArrayList<JLabel>();
     ArrayList<JLabel> green_players = new ArrayList<JLabel>();
+    
+    UDPHandler handler;
+    
     int redScore = 1000000;
-
     int greenScore = 1000000;
+    
     public static void main(String[] args) {
         ArrayList<backend.Player> test_players = new ArrayList<Player>();
         JFrame frame = new JFrame();
@@ -28,6 +32,8 @@ public class ActionDisplay extends javax.swing.JPanel{
      * Creates new form AcitonDisplay
      */
     public ActionDisplay(ArrayList<Player> players) {
+    	this.handler = new UDPHandler(this);
+    	this.handler.start();
         initComponents();
         this.players = players;
         playerList();
@@ -169,6 +175,11 @@ public class ActionDisplay extends javax.swing.JPanel{
         );
     }// </editor-fold>                        
 
+    
+    public void handleAction(int i1, int i2)
+    {
+    	System.out.println(String.format("%d hit %d", i1, i2));
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JLabel jLabel1;

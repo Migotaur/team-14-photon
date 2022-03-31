@@ -5,10 +5,11 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
+
 //Original file by Troy Watts.
 public class CombatClock extends JLabel{
     public boolean gameStart = false; //Will be false until the pre-game timer is done
-    public boolean timeUp = false;  //If you want something to happen when countdown reaches 0, check for this being true.
+    public static boolean timeUp = false;  //If you want something to happen when countdown reaches 0, check for this being true.
 
     CombatClock(){
         super();

@@ -123,8 +123,9 @@ public class Player
 	}
 	public static void main(String[] args)
 	{
-		Player p = new Player(0, "cicarter");
-		System.out.println(p.hashCode());
+		String test = "10:20";
+		String[] ids = test.split(":");
+		System.out.println(ids[1]);
 	}
 	
 	public void print()
@@ -148,6 +149,5 @@ public class Player
 		String playerAsJSONString = mapper.writeValueAsString(this);
 		return playerAsJSONString;
 	}
-
 
 }

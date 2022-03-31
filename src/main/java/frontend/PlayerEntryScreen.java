@@ -215,6 +215,8 @@ public class PlayerEntryScreen extends javax.swing.JPanel implements KeyListener
             label1.setText("Unable to start game. Make sure teams are even with at least one player");
         }
     }
+    
+    
 //Adds Player to Game and sets their team
 private void addPlayer(Player p, int index){
     //If codename is not in player list, add it to player list (Prevent Duplicates)
