@@ -12,10 +12,12 @@ public class ActionDisplay extends javax.swing.JPanel{
     ArrayList<JLabel> red_players = new ArrayList<JLabel>();
     ArrayList<JLabel> green_players = new ArrayList<JLabel>();
     
+    Player attacker = null;
+    Player target = null;
     UDPHandler handler;
     
-    int redScore = 1000000;
-    int greenScore = 1000000;
+    int redScore = 0;
+    int greenScore = 0;
     
     public static void main(String[] args) {
         ArrayList<backend.Player> test_players = new ArrayList<Player>();
@@ -80,6 +82,70 @@ public class ActionDisplay extends javax.swing.JPanel{
         }
     }  
     
+    private void updateScores(Player attacker, Player target){
+        JLabel attacker_label = attacker.getLabel();
+        JLabel target_label = target.getLabel();
+
+        //Updates Player Labels (if they have been set)
+        if(attacker_label != null && target_label != null){
+            //Error handling for Friendly Fire (in case there is faulty input in traffic generator)
+            if(!attacker.getTeam().equals(target.getTeam())){
+                //Determines which team the attacker is on
+                if(attacker.getTeam().equals("red")){
+                    //Sets score and label for attacker
+                    attacker.setScore(attacker.getScore() + 10);
+                    attacker_label.setText(attacker.getCodeName() + "     " + attacker.getScore());
+                    redScore += 10;
+                    jLabel1.setText("RED TEAM: " + redScore);
+
+                    //Sets score and label for target (Does nothing if target's score is already 0)
+                    if(target.getScore() > 0){
+                        target.setScore(target.getScore() - 10);
+                        target_label.setText(target.getCodeName() + "     " + target.getScore());
+                        greenScore -= 10;
+                        jLabel2.setText("GREEN TEAM: " + greenScore);
+                    }
+                }
+                else{
+                    //Sets score and label for attacker
+                    attacker.setScore(attacker.getScore() + 10);
+                    attacker_label.setText(attacker.getCodeName() + "     " + attacker.getScore());
+                    greenScore += 10;
+                    jLabel2.setText("GREEN TEAM: " + greenScore);
+
+                    //Sets score and label for target (Does nothing if target's score is already 0)
+                    if(target.getScore() > 0){
+                        target.setScore(target.getScore() - 10);
+                        target_label.setText(target.getCodeName() + "     " + target.getScore());
+                        redScore -= 10;
+                        jLabel1.setText("RED TEAM: " + redScore);
+                    }
+                }
+                
+                
+            }  
+        }
+    }
+
+    //Searches by id to assign attacker
+    private Player assignAttacker(int attacker_id){
+        for(Player p : this.players){
+            if(p.getUserID() == attacker_id){
+                return p;
+            }
+        }
+        return new Player(-1, "N/A");
+    }
+
+    //Searches by id to assign attacker
+    private Player assignTarget(int target_id){
+        for(Player p : this.players){
+            if(p.getUserID() == target_id){
+                return p;
+            }
+        }
+        return new Player(-1, "N/A");
+    }
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -175,10 +241,19 @@ public class ActionDisplay extends javax.swing.JPanel{
         );
     }// </editor-fold>                        
 
-    
-    public void handleAction(int i1, int i2)
+    //This function is called from the backend whenever an event happens
+    public void handleAction(int attacker_id, int target_id)
     {
-    	System.out.println(String.format("%d hit %d", i1, i2));
+        //Assign Target and Attacker players
+        this.attacker = assignAttacker(attacker_id);
+        this.target = assignTarget(target_id);
+        
+        //Updates scores for both attacker and target
+        updateScores(this.attacker, this.target);
+
+        //Debug Message
+        System.out.println(String.format("%s hit %s", this.attacker.getCodeName(), this.target.getCodeName()));
+        
     }
 
     // Variables declaration - do not modify                     
