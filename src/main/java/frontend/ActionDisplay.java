@@ -22,8 +22,7 @@ public class ActionDisplay extends javax.swing.JPanel{
     public static void main(String[] args) {
         ArrayList<backend.Player> test_players = new ArrayList<Player>();
         JFrame frame = new JFrame();
-        ActionDisplay test = new ActionDisplay(test_players);
-
+        ActionDisplay test = new ActionDisplay(test_players);      
         frame.setSize(700, 500);
         frame.setVisible(true);
         frame.add(test);
@@ -97,6 +96,8 @@ public class ActionDisplay extends javax.swing.JPanel{
                     attacker_label.setText(attacker.getCodeName() + "     " + attacker.getScore());
                     redScore += 10;
                     jLabel1.setText("RED TEAM: " + redScore);
+                    BlinkLabel bl = new BlinkLabel(redScore);
+            
 
                     //Sets score and label for target (Does nothing if target's score is already 0)
                     if(target.getScore() > 0){
@@ -153,6 +154,13 @@ public class ActionDisplay extends javax.swing.JPanel{
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        Msg1 = new javax.swing.JLabel();
+        Msg2 = new javax.swing.JLabel();
+        Msg3 = new javax.swing.JLabel();
+        Msg5 = new javax.swing.JLabel();
+        Msg6 = new javax.swing.JLabel();
+        Msg4 = new javax.swing.JLabel();
+        Msg7 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Current Scores", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(51, 153, 255)), "XP", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 204, 51))); // NOI18N
@@ -170,16 +178,70 @@ public class ActionDisplay extends javax.swing.JPanel{
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Current Game Action", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        
+
+        Msg1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg1.setForeground(new java.awt.Color(255, 255, 255));
+        Msg1.setText("Player 1 hits Player 2");
+
+        Msg2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg2.setForeground(new java.awt.Color(255, 255, 255));
+        Msg2.setText("Player 1 hits Player 2");
+
+        Msg3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg3.setForeground(new java.awt.Color(255, 255, 255));
+        Msg3.setText("Player 1 hits Player 2");
+
+        Msg5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg5.setForeground(new java.awt.Color(255, 255, 255));
+        Msg5.setText("Player 1 hits Player 2");
+
+        Msg6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg6.setForeground(new java.awt.Color(255, 255, 255));
+        Msg6.setText("Player 1 hits Player 2");
+
+        Msg4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg4.setForeground(new java.awt.Color(255, 255, 255));
+        Msg4.setText("Player 1 hits Player 2");
+
+        Msg7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Msg7.setForeground(new java.awt.Color(255, 255, 255));
+        Msg7.setText("Player 1 hits Player 2");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Msg1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Msg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Msg3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Msg5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Msg6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Msg7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Msg4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(Msg1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Msg2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Msg3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Msg4)
+                .addGap(4, 4, 4)
+                .addComponent(Msg5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Msg6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Msg7)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -256,7 +318,14 @@ public class ActionDisplay extends javax.swing.JPanel{
         
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify 
+    private javax.swing.JLabel Msg1;
+    private javax.swing.JLabel Msg2;
+    private javax.swing.JLabel Msg3;
+    private javax.swing.JLabel Msg4;
+    private javax.swing.JLabel Msg5;
+    private javax.swing.JLabel Msg6;
+    private javax.swing.JLabel Msg7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
