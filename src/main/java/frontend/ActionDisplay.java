@@ -161,7 +161,7 @@ public class ActionDisplay extends javax.swing.JPanel{
         Msg6 = new javax.swing.JLabel();
         Msg4 = new javax.swing.JLabel();
         Msg7 = new javax.swing.JLabel();
-
+        
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Current Scores", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(51, 153, 255)), "XP", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 204, 51))); // NOI18N
 
@@ -179,7 +179,7 @@ public class ActionDisplay extends javax.swing.JPanel{
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Current Game Action", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         
-
+//messages
         Msg1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg1.setForeground(new java.awt.Color(255, 255, 255));
         Msg1.setText("Player 1 hits Player 2");
@@ -199,7 +199,7 @@ public class ActionDisplay extends javax.swing.JPanel{
         Msg6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg6.setForeground(new java.awt.Color(255, 255, 255));
         Msg6.setText("Player 1 hits Player 2");
-
+       
         Msg4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg4.setForeground(new java.awt.Color(255, 255, 255));
         Msg4.setText("Player 1 hits Player 2");
