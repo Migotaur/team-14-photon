@@ -96,7 +96,6 @@ public class ActionDisplay extends javax.swing.JPanel{
                     attacker_label.setText(attacker.getCodeName() + "     " + attacker.getScore());
                     redScore += 10;
                     jLabel1.setText("RED TEAM: " + redScore);
-                    BlinkLabel bl = new BlinkLabel(redScore);
             
 
                     //Sets score and label for target (Does nothing if target's score is already 0)
