@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import backend.Player;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActionDisplay extends javax.swing.JPanel{
 
@@ -14,8 +16,10 @@ public class ActionDisplay extends javax.swing.JPanel{
     
     Player attacker = null;
     Player target = null;
+    Player top_scorer = null;
     UDPHandler handler;
-    
+    Timer blink_timer;
+
     int redScore = 0;
     int greenScore = 0;
     
@@ -81,6 +85,29 @@ public class ActionDisplay extends javax.swing.JPanel{
         }
     }  
     
+    //Makes the set blinking label blink on the screen
+    private void blinkPlayer(Player p){
+        //Creates and sets new blink timer
+        Timer timer = new Timer();
+        this.blink_timer = timer;
+        JLabel label = p.getLabel();
+        timer.scheduleAtFixedRate(new TimerTask(){
+            public void run() {
+                if(label.getForeground() != Color.BLACK){
+                    label.setForeground(Color.BLACK);
+                }
+                else{
+                    if(p.getTeam().equals("red")){
+                        label.setForeground(Color.RED);
+                    }
+                    else{
+                        label.setForeground(Color.GREEN);
+                    }
+                }
+            }
+        }, 0, 500);
+    }
+
     private void updateScores(Player attacker, Player target){
         JLabel attacker_label = attacker.getLabel();
         JLabel target_label = target.getLabel();
@@ -122,9 +149,54 @@ public class ActionDisplay extends javax.swing.JPanel{
                     }
                 }
                 
-                
+                //Calls this method each time a new score occurs
+                handleHighScore();
             }  
         }
+    }
+
+    //Searches for player with highest score, and sets blinking label to that player's label
+    private void handleHighScore(){
+        //Finds player with highest score and sets the blinking label to that player's label (unless that score is zero)
+        Player highest_scorer = getHighestScorer();
+        Player original = this.top_scorer;
+
+        if(highest_scorer.getScore() != 0){
+            this.top_scorer = highest_scorer;
+            
+
+            if(original != this.top_scorer){
+                //Cancels timer and resets original label (if they exist)
+                if(this.blink_timer != null){
+                    this.blink_timer.cancel();
+                }
+                if(original != null){
+                    JLabel label = original.getLabel();
+                    if(original.getTeam().equals("red")){
+                        label.setForeground(Color.RED);
+                    }
+                    else{
+                        label.setForeground(Color.GREEN);
+                    }
+                }
+
+                blinkPlayer(this.top_scorer);
+            }
+        }
+
+        
+    }
+
+    //Returns the player with the highest score
+    private Player getHighestScorer(){
+        Player max_scorer = this.players.get(0);
+
+        for(Player p: this.players){
+            if(p.getScore() > max_scorer.getScore()){
+                max_scorer = p;
+            }
+        }
+        return max_scorer;
     }
 
     //Searches by id to assign attacker
