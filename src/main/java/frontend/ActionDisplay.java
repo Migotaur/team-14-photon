@@ -22,7 +22,7 @@ public class ActionDisplay extends javax.swing.JPanel{
 
     int redScore = 0;
     int greenScore = 0;
-    
+    int event_counter = 0;
     public static void main(String[] args) {
         ArrayList<backend.Player> test_players = new ArrayList<Player>();
         JFrame frame = new JFrame();
@@ -187,6 +187,29 @@ public class ActionDisplay extends javax.swing.JPanel{
         
     }
 
+    //Handles the Game Messages that appear in the Dialog
+    private void handleGameMessages(int event_counter, Player attacker, Player target){
+        JLabel[] msg_labels = new JLabel[]{Msg1, Msg2, Msg3, Msg4, Msg5, Msg6, Msg7};
+        //Checks if the game messages are the first 7 messages, if not then it will do a scrolling effect
+        if(event_counter <= 7){
+            //New event message appears (then becomes visible)
+            msg_labels[event_counter - 1].setText("Event: " + event_counter);
+            msg_labels[event_counter - 1].setForeground(Color.white);
+        }
+        else{
+            //Scrolling Effect
+            msg_labels[0].setText(msg_labels[1].getText());
+            msg_labels[1].setText(msg_labels[2].getText());
+            msg_labels[2].setText(msg_labels[3].getText());
+            msg_labels[3].setText(msg_labels[4].getText());
+            msg_labels[4].setText(msg_labels[5].getText());
+            msg_labels[5].setText(msg_labels[6].getText());
+
+            //New event message appears
+            msg_labels[6].setText("Event: " + event_counter);
+        }
+    }
+
     //Returns the player with the highest score
     private Player getHighestScorer(){
         Player max_scorer = this.players.get(0);
@@ -254,30 +277,37 @@ public class ActionDisplay extends javax.swing.JPanel{
         Msg1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg1.setForeground(new java.awt.Color(255, 255, 255));
         Msg1.setText("Player 1 hits Player 2");
+        Msg1.setForeground(Color.BLUE);
 
         Msg2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg2.setForeground(new java.awt.Color(255, 255, 255));
         Msg2.setText("Player 1 hits Player 2");
+        Msg2.setForeground(Color.BLUE);
 
         Msg3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg3.setForeground(new java.awt.Color(255, 255, 255));
         Msg3.setText("Player 1 hits Player 2");
+        Msg3.setForeground(Color.BLUE);
 
         Msg5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg5.setForeground(new java.awt.Color(255, 255, 255));
         Msg5.setText("Player 1 hits Player 2");
+        Msg5.setForeground(Color.BLUE);
 
         Msg6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg6.setForeground(new java.awt.Color(255, 255, 255));
         Msg6.setText("Player 1 hits Player 2");
+        Msg6.setForeground(Color.BLUE);
        
         Msg4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg4.setForeground(new java.awt.Color(255, 255, 255));
         Msg4.setText("Player 1 hits Player 2");
+        Msg4.setForeground(Color.BLUE);
 
         Msg7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Msg7.setForeground(new java.awt.Color(255, 255, 255));
         Msg7.setText("Player 1 hits Player 2");
+        Msg7.setForeground(Color.BLUE);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -381,12 +411,17 @@ public class ActionDisplay extends javax.swing.JPanel{
         this.attacker = assignAttacker(attacker_id);
         this.target = assignTarget(target_id);
         
-        //Updates scores for both attacker and target
-        updateScores(this.attacker, this.target);
+        //If target and attacker are not found (id of -1), then events do not occur
+        if(this.attacker.getUserID() != -1 && this.target.getUserID() != -1){
+            //Update Counter
+            this.event_counter++;
 
-        //Debug Message
-        System.out.println(String.format("%s hit %s", this.attacker.getCodeName(), this.target.getCodeName()));
-        
+            //Updates scores for both attacker and target
+            updateScores(this.attacker, this.target);
+
+            //Handles Game Messages (method still unfinished)
+            handleGameMessages(this.event_counter, this.attacker, this.target);
+        }
     }
 
     // Variables declaration - do not modify 
@@ -402,5 +437,6 @@ public class ActionDisplay extends javax.swing.JPanel{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+
     // End of variables declaration                   
 }
