@@ -2,6 +2,7 @@ package frontend;
 import javax.swing.JFrame;
 import backend.UDPHandler;
 import java.util.ArrayList;
+import java.util.Random;
 import backend.Player;
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -193,7 +194,7 @@ public class ActionDisplay extends javax.swing.JPanel{
         //Checks if the game messages are the first 7 messages, if not then it will do a scrolling effect
         if(event_counter <= 7){
             //New event message appears (then becomes visible)
-            msg_labels[event_counter - 1].setText("Event: " + event_counter);
+            msg_labels[event_counter - 1].setText(generateBattleString(attacker, target));
             msg_labels[event_counter - 1].setForeground(Color.white);
         }
         else{
@@ -206,8 +207,39 @@ public class ActionDisplay extends javax.swing.JPanel{
             msg_labels[5].setText(msg_labels[6].getText());
 
             //New event message appears
-            msg_labels[6].setText("Event: " + event_counter);
+            msg_labels[6].setText(generateBattleString(attacker, target));
         }
+    }
+
+    //Generates string to be used in event message
+    private String generateBattleString(Player attacker, Player target){
+        Random generator = new Random();
+
+        switch (generator.nextInt(16)){
+            case 0: return target.getCodeName() + " was pummeled by " + attacker.getCodeName() + ".";
+            case 1: return target.getCodeName() + " was punched by " + attacker.getCodeName() + ".";
+            case 2: return target.getCodeName() + " was shot by " + attacker.getCodeName() + ".";
+            case 3: return target.getCodeName() + " slipped on a banana peel left by " + attacker.getCodeName() + ".";
+
+            case 4: return attacker.getCodeName() + " defenestrated " + target.getCodeName() + ".";
+            case 5: return attacker.getCodeName() + " slapped " + target.getCodeName() + ".";
+            case 6: return attacker.getCodeName() + " suplexed " + target.getCodeName() + " into the ground.";
+            case 7: return attacker.getCodeName() + " pushed " + target.getCodeName() + " into a puddle of mud.";
+
+            case 8: return target.getCodeName() + " was given a swirly by " + attacker.getCodeName() + ".";
+            case 9: return target.getCodeName() + " was poked aggressively by " + attacker.getCodeName() + ".";
+            case 10: return target.getCodeName() + " was hit by a spitball from " + attacker.getCodeName() + ".";
+            case 11: return target.getCodeName() + " received a noogie from " + attacker.getCodeName() + ".";
+
+            case 12: return attacker.getCodeName() + " threw a snowball at " + target.getCodeName() + ".";
+            case 13: return attacker.getCodeName() + " unleashed immense power against " + target.getCodeName() + ".";
+            case 14: return attacker.getCodeName() + " tackled " + target.getCodeName() + " to the ground.";
+            case 15: return attacker.getCodeName() + " damaged the self confidence of " + target.getCodeName() + ".";
+
+            default: System.out.println("Error: generateBattleString should not reach default branch."); break;
+        }
+
+        return "Error: message failed to generate. Check generateBattleString in ActionDisplay.java.";
     }
 
     //Returns the player with the highest score
