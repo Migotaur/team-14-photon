@@ -9,7 +9,7 @@ import java.util.TimerTask;
 //Original file by Troy Watts.
 public class CombatClock extends JLabel{
     public boolean gameStart = false; //Will be false until the pre-game timer is done
-    public static boolean timeUp = false;  //If you want something to happen when countdown reaches 0, check for this being true.
+    public boolean timeUp = false;  //If you want something to happen when countdown reaches 0, check for this being true.
 
     CombatClock(){
         super();
@@ -19,7 +19,7 @@ public class CombatClock extends JLabel{
         Timer timer = new Timer();
         String timerMessage = "Game will start in: ";
         timer.scheduleAtFixedRate(new TimerTask(){
-            int i = 30;
+            int i = 1;
             DecimalFormat secondFormat = new DecimalFormat("00");
             public void run() {
                 setText(timerMessage + (i/60) + ":" + secondFormat.format(i%60));
@@ -42,7 +42,7 @@ public class CombatClock extends JLabel{
         String timerMessage = "Time Remaining: ";
         setForeground(Color.WHITE);
         timer.scheduleAtFixedRate(new TimerTask(){
-            int i = 360;
+            int i = 5;
             DecimalFormat secondFormat = new DecimalFormat("00");
             public void run() {
                 setText(timerMessage + (i/60) + ":" + secondFormat.format(i%60));

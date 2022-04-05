@@ -205,6 +205,7 @@ public class PlayerEntryScreen extends javax.swing.JPanel implements KeyListener
 
             javax.swing.JFrame frame = new javax.swing.JFrame();
             ActionDisplay test = new ActionDisplay(players);
+            frame.addKeyListener(test);
             frame.setTitle("Photon (Game in Action)");
             frame.setSize(700, 700);
             frame.setVisible(true);

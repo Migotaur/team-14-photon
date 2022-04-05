@@ -1,11 +1,10 @@
 package frontend;
 
-import java.awt.event.*;
 import javax.swing.JFrame;
 import java.util.Properties;
 import java.io.IOException;
 
-public class Game implements KeyListener{
+public class Game{
 	public static String resourceFolder;
 	boolean keyF5 = false;
 
@@ -21,26 +20,6 @@ public class Game implements KeyListener{
 			e.printStackTrace();
 		}
 
-	}
-	
-	public void keyPressed(KeyEvent e)
-	{
-		if(e.getKeyCode() == KeyEvent.VK_F5){
-			System.out.println("The time is now");
-		}
-	}
-
-	public void keyReleased(KeyEvent e)
-	{
-		switch(e.getKeyCode())
-		{
-			case KeyEvent.VK_F5: System.out.println("The time is now");break;
-		}
-		System.out.println("The time is now");
-	}
-
-	public void keyTyped(KeyEvent e)
-	{
 	}
 
 	public void startGame()

@@ -1,5 +1,6 @@
 package frontend;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import backend.UDPHandler;
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,9 +9,11 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.event.*;
 
-public class ActionDisplay extends javax.swing.JPanel{
+public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
 
+    CombatClock clock = new CombatClock();
     ArrayList<Player> players;
     ArrayList<JLabel> red_players = new ArrayList<JLabel>();
     ArrayList<JLabel> green_players = new ArrayList<JLabel>();
@@ -273,6 +276,11 @@ public class ActionDisplay extends javax.swing.JPanel{
         }
         return new Player(-1, "N/A");
     }
+
+    public boolean timeUp(){
+        return this.clock.timeUp;
+    }
+
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -385,7 +393,7 @@ public class ActionDisplay extends javax.swing.JPanel{
 
        
        
-        CombatClock clock = new CombatClock();
+        
         clock.setForeground(new java.awt.Color(255, 255, 255));
         clock.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         clock.StartWarmup();
@@ -456,6 +464,27 @@ public class ActionDisplay extends javax.swing.JPanel{
         }
     }
 
+    //Starts a new game (Called when user presses F1 after the game is over)
+    private void startNewGame(){
+        //Checks if current game is actually over (will not execute if the current game is ongoing)
+        if(timeUp()){
+            handler.end();
+            //Kills the current game
+            // JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            // parentFrame.dispose();
+
+            // //Opens a new Player Entry screen
+            // JFrame frame = new JFrame();
+        	// PlayerEntryScreen newGame = new PlayerEntryScreen();
+			// frame.setTitle("Photon - Game Setup");
+        	// frame.setSize(1000, 750);
+        	// frame.setVisible(true);
+			// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        	// frame.add(newGame);
+            
+        }
+    }
+
     // Variables declaration - do not modify 
     private javax.swing.JLabel Msg1;
     private javax.swing.JLabel Msg2;
@@ -469,6 +498,27 @@ public class ActionDisplay extends javax.swing.JPanel{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_F1: startNewGame();break;
+		}
+        
+    }
 
     // End of variables declaration                   
 }
