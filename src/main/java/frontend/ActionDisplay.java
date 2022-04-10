@@ -222,7 +222,7 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
     private String generateBattleString(Player attacker, Player target){
         Random generator = new Random();
 
-        switch (generator.nextInt(16)){
+        switch (generator.nextInt(20)){
             case 0: return target.getCodeName() + " was pummeled by " + attacker.getCodeName() + ".";
             case 1: return target.getCodeName() + " was punched by " + attacker.getCodeName() + ".";
             case 2: return target.getCodeName() + " was shot by " + attacker.getCodeName() + ".";
@@ -242,6 +242,11 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
             case 13: return attacker.getCodeName() + " unleashed immense power against " + target.getCodeName() + ".";
             case 14: return attacker.getCodeName() + " tackled " + target.getCodeName() + " to the ground.";
             case 15: return attacker.getCodeName() + " damaged the self confidence of " + target.getCodeName() + ".";
+			
+	    case 16: return attacker.getCodeName() + " zapped " + target.getCodeName() + ".";
+            case 17: return attacker.getCodeName() + " shocked " + target.getCodeName() + ".";
+            case 18: return attacker.getCodeName() + " schorched " + target.getCodeName() + ".";
+            case 19: return attacker.getCodeName() + " no-scoped " + target.getCodeName() + ".";
 
             default: System.out.println("Error: generateBattleString should not reach default branch."); break;
         }
