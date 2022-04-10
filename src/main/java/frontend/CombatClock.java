@@ -10,16 +10,22 @@ import java.util.TimerTask;
 public class CombatClock extends JLabel{
     public boolean gameStart = false; //Will be false until the pre-game timer is done
     public boolean timeUp = false;  //If you want something to happen when countdown reaches 0, check for this being true.
+    ActionDisplay mainDisplay;
 
     CombatClock(){
         super();
+    }
+
+    CombatClock(ActionDisplay mainDisplay){
+        super();
+        this.mainDisplay = mainDisplay;
     }
 
     public void StartWarmup(){  //This should be called when the action starts. Lasts for 6 minutes by default.
         Timer timer = new Timer();
         String timerMessage = "Game will start in: ";
         timer.scheduleAtFixedRate(new TimerTask(){
-            int i = 1;
+            int i = 30;
             DecimalFormat secondFormat = new DecimalFormat("00");
             public void run() {
                 setText(timerMessage + (i/60) + ":" + secondFormat.format(i%60));
@@ -41,8 +47,12 @@ public class CombatClock extends JLabel{
         Timer timer = new Timer();
         String timerMessage = "Time Remaining: ";
         setForeground(Color.WHITE);
+
+        //Starts UDPHandler on ActionDisplay
+        this.mainDisplay.startHandler();
+        
         timer.scheduleAtFixedRate(new TimerTask(){
-            int i = 5;
+            int i = 360;
             DecimalFormat secondFormat = new DecimalFormat("00");
             public void run() {
                 setText(timerMessage + (i/60) + ":" + secondFormat.format(i%60));
@@ -53,7 +63,7 @@ public class CombatClock extends JLabel{
                 if(i < 0){
                     timer.cancel();
                     timeUp = true;
-                    setText("Game Over");
+                    setText("Game Over. Press <F1> to start a new game.");
                 }
             }
         }, 0, 1000);

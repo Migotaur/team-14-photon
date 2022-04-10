@@ -33,14 +33,20 @@ public class UDPHandler extends Thread {
 	public void run() {
 		while (true)
 		{
-			// If (clock time is valid)
-			
-			this.receiveUDPPacketConnection.receiveData();
-			String packet = this.receiveUDPPacketConnection.getSocketData();
-			if (!packet.isEmpty())
-			{
-				handlePacket(packet);
+			//Receives data as long as CombatClock has not expired
+			if(!this.mainDisplay.timeUp()){
+				this.receiveUDPPacketConnection.receiveData();
+				String packet = this.receiveUDPPacketConnection.getSocketData();
+				if (!packet.isEmpty())
+				{
+					handlePacket(packet);
+				}
 			}
+			else{
+				end();
+			}
+			
+			
 		}
 	}
 	

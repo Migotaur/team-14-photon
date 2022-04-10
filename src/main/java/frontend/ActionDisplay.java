@@ -13,7 +13,7 @@ import java.awt.event.*;
 
 public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
 
-    CombatClock clock = new CombatClock();
+    CombatClock clock = new CombatClock(this);
     ArrayList<Player> players;
     ArrayList<JLabel> red_players = new ArrayList<JLabel>();
     ArrayList<JLabel> green_players = new ArrayList<JLabel>();
@@ -41,11 +41,15 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
      * Creates new form AcitonDisplay
      */
     public ActionDisplay(ArrayList<Player> players) {
-    	this.handler = new UDPHandler(this);
-    	this.handler.start();
         initComponents();
         this.players = players;
         playerList();
+    }
+
+    //Starts the UDPHandler (called from CombatClock)
+    public void startHandler(){
+        this.handler = new UDPHandler(this);
+    	this.handler.start();
     }
 
     private void playerList(){
@@ -397,7 +401,7 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
         clock.setForeground(new java.awt.Color(255, 255, 255));
         clock.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         clock.StartWarmup();
-        clock.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        clock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -411,11 +415,9 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
                 .addGap(38, 38, 38))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(218, 218, 218)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(clock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,19 +470,18 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
     private void startNewGame(){
         //Checks if current game is actually over (will not execute if the current game is ongoing)
         if(timeUp()){
-            handler.end();
             //Kills the current game
-            // JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            // parentFrame.dispose();
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            parentFrame.dispose();
 
-            // //Opens a new Player Entry screen
-            // JFrame frame = new JFrame();
-        	// PlayerEntryScreen newGame = new PlayerEntryScreen();
-			// frame.setTitle("Photon - Game Setup");
-        	// frame.setSize(1000, 750);
-        	// frame.setVisible(true);
-			// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        	// frame.add(newGame);
+            //Opens a new Player Entry screen
+            JFrame frame = new JFrame();
+        	PlayerEntryScreen newGame = new PlayerEntryScreen();
+			frame.setTitle("Photon - Game Setup");
+        	frame.setSize(1000, 750);
+        	frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        	frame.add(newGame);
             
         }
     }
