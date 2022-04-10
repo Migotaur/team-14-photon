@@ -1,5 +1,7 @@
 package frontend;
 import backend.*;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -112,7 +114,6 @@ public class PlayerEntryScreen extends javax.swing.JPanel implements KeyListener
         //Action Handling for ID Fields
         for(JTextField id_field : id_fields){
             id_field.addKeyListener(this);
-
             id_field.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                    //Checks if text is an integer, then querys database for that id
@@ -213,6 +214,7 @@ public class PlayerEntryScreen extends javax.swing.JPanel implements KeyListener
             frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         }
         else{
+            JOptionPane.showMessageDialog(null, "Unable to start game. Make sure teams are even with at least one player (make sure to hit <Enter> after entering a player's ID)");
             label1.setText("Unable to start game. Make sure teams are even with at least one player");
         }
     }
@@ -250,70 +252,70 @@ private Player getPlayer(String codeword){
 
 // Components in Player Entry Screen (Collapsing Advised)                         
 private void initComponents() {
-
+    String hint = "Enter ID & hit <Enter>";
     edit_game_label = new java.awt.Label();
     red_team_container = new java.awt.Panel();
-    red_id_field0 = new javax.swing.JTextField();
+    red_id_field0 = new HintTextField(hint);
     red_name_field0 = new javax.swing.JTextField();
-    red_id_field1 = new javax.swing.JTextField();
+    red_id_field1 = new HintTextField(hint);
     red_name_field1 = new javax.swing.JTextField();
-    red_id_field2 = new javax.swing.JTextField();
+    red_id_field2 = new HintTextField(hint);
     red_name_field2 = new javax.swing.JTextField();
-    red_id_field3 = new javax.swing.JTextField();
+    red_id_field3 = new HintTextField(hint);
     red_name_field3 = new javax.swing.JTextField();
-    red_id_field4 = new javax.swing.JTextField();
+    red_id_field4 = new HintTextField(hint);
     red_name_field4 = new javax.swing.JTextField();
-    red_id_field5 = new javax.swing.JTextField();
+    red_id_field5 = new HintTextField(hint);
     red_name_field5 = new javax.swing.JTextField();
-    red_id_field6 = new javax.swing.JTextField();
+    red_id_field6 = new HintTextField(hint);
     red_name_field6 = new javax.swing.JTextField();
-    red_id_field7 = new javax.swing.JTextField();
+    red_id_field7 = new HintTextField(hint);
     red_name_field7 = new javax.swing.JTextField();
-    red_id_field8 = new javax.swing.JTextField();
-    red_id_field9 = new javax.swing.JTextField();
+    red_id_field8 = new HintTextField(hint);
+    red_id_field9 = new HintTextField(hint);
     red_name_field9 = new javax.swing.JTextField();
     red_name_field10 = new javax.swing.JTextField();
     red_name_field11 = new javax.swing.JTextField();
-    red_id_field11 = new javax.swing.JTextField();
-    red_id_field12 = new javax.swing.JTextField();
+    red_id_field11 = new HintTextField(hint);
+    red_id_field12 = new HintTextField(hint);
     red_name_field13 = new javax.swing.JTextField();
-    red_id_field10 = new javax.swing.JTextField();
-    red_id_field13 = new javax.swing.JTextField();
+    red_id_field10 = new HintTextField(hint);
+    red_id_field13 = new HintTextField(hint);
     red_name_field12 = new javax.swing.JTextField();
     red_name_field8 = new javax.swing.JTextField();
     jLabel4 = new javax.swing.JLabel();
     green_team_container = new java.awt.Panel();
-    green_id_field0 = new javax.swing.JTextField();
+    green_id_field0 = new HintTextField(hint);
     green_name_field0 = new javax.swing.JTextField();
-    green_id_field1 = new javax.swing.JTextField();
+    green_id_field1 = new HintTextField(hint);
     green_name_field1 = new javax.swing.JTextField();
-    green_id_field2 = new javax.swing.JTextField();
+    green_id_field2 = new HintTextField(hint);
     green_name_field2 = new javax.swing.JTextField();
-    green_id_field3 = new javax.swing.JTextField();
+    green_id_field3 = new HintTextField(hint);
     green_name_field3 = new javax.swing.JTextField();
-    green_id_field4 = new javax.swing.JTextField();
+    green_id_field4 = new HintTextField(hint);
     green_name_field4 = new javax.swing.JTextField();
-    green_id_field5 = new javax.swing.JTextField();
+    green_id_field5 = new HintTextField(hint);
     green_name_field5 = new javax.swing.JTextField();
-    green_id_field6 = new javax.swing.JTextField();
+    green_id_field6 = new HintTextField(hint);
     green_name_field6 = new javax.swing.JTextField();
-    green_id_field7 = new javax.swing.JTextField();
+    green_id_field7 = new HintTextField(hint);
     green_name_field7 = new javax.swing.JTextField();
-    green_id_field8 = new javax.swing.JTextField();
+    green_id_field8 = new HintTextField(hint);
     green_name_field8 = new javax.swing.JTextField();
-    green_id_field9 = new javax.swing.JTextField();
+    green_id_field9 = new HintTextField(hint);
     green_name_field9 = new javax.swing.JTextField();
-    green_id_field10 = new javax.swing.JTextField();
+    green_id_field10 = new HintTextField(hint);
     green_name_field10 = new javax.swing.JTextField();
-    green_id_field11 = new javax.swing.JTextField();
+    green_id_field11 = new HintTextField(hint);
     green_name_field11 = new javax.swing.JTextField();
-    green_id_field12 = new javax.swing.JTextField();
+    green_id_field12 = new HintTextField(hint);
     green_name_field12 = new javax.swing.JTextField();
-    green_id_field13 = new javax.swing.JTextField();
+    green_id_field13 = new HintTextField(hint);
     green_name_field13 = new javax.swing.JTextField();
-    green_id_field14 = new javax.swing.JTextField();
+    green_id_field14 = new HintTextField(hint);
     green_name_field14 = new javax.swing.JTextField();
-    red_id_field14 = new javax.swing.JTextField();
+    red_id_field14 = new HintTextField(hint);
     red_name_field14 = new javax.swing.JTextField();
     jLabel5 = new javax.swing.JLabel();
     label1 = new java.awt.Label();
@@ -834,3 +836,40 @@ private void initComponents() {
     private java.awt.Panel red_team_container;
     // End of variables declaration                   
 }
+
+//HintTextField Class
+class HintTextField extends JTextField implements FocusListener {
+
+    private final String hint;
+    private boolean showingHint;
+  
+    public HintTextField(final String hint) {
+      super(hint);
+      this.hint = hint;
+      this.showingHint = true;
+      super.addFocusListener(this);
+      super.setForeground(java.awt.Color.GRAY);
+    }
+  
+    @Override
+    public void focusGained(FocusEvent e) {
+      if(this.getText().isEmpty()) {
+        super.setText("");
+        showingHint = false;
+        super.setForeground(java.awt.Color.BLACK);
+      }
+    }
+    @Override
+    public void focusLost(FocusEvent e) {
+      if(this.getText().isEmpty()) {
+        super.setText(hint);
+        showingHint = true;
+        super.setForeground(java.awt.Color.GRAY);
+      }
+    }
+  
+    @Override
+    public String getText() {
+      return showingHint ? "" : super.getText();
+    }
+  }
