@@ -222,7 +222,7 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
     private String generateBattleString(Player attacker, Player target){
         Random generator = new Random();
 
-        switch (generator.nextInt(20)){
+        switch (generator.nextInt(30)){
             case 0: return target.getCodeName() + " was pummeled by " + attacker.getCodeName() + ".";
             case 1: return target.getCodeName() + " was punched by " + attacker.getCodeName() + ".";
             case 2: return target.getCodeName() + " was shot by " + attacker.getCodeName() + ".";
@@ -243,16 +243,22 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
             case 14: return attacker.getCodeName() + " tackled " + target.getCodeName() + " to the ground.";
             case 15: return attacker.getCodeName() + " damaged the self confidence of " + target.getCodeName() + ".";
 			
-	    case 16: return attacker.getCodeName() + " zapped " + target.getCodeName() + ".";
+	        case 16: return attacker.getCodeName() + " zapped " + target.getCodeName() + ".";
             case 17: return attacker.getCodeName() + " shocked " + target.getCodeName() + ".";
             case 18: return attacker.getCodeName() + " schorched " + target.getCodeName() + ".";
             case 19: return attacker.getCodeName() + " no-scoped " + target.getCodeName() + ".";
-            case 20: return attacker.getCodeName() + " Was... we won't talk about it " + target.getCodeName() + ".";
-            case 21: return attacker.getCodeName() + " Wasted by " + target.getCodeName() + ".";
-            case 22: return attacker.getCodeName() + " Was out matched by " + target.getCodeName() + ".";
-            case 23: return attacker.getCodeName() + " bamboozeled by " + target.getCodeName() + ".";
-            case 24: return attacker.getCodeName() + " sent home to his mother by " + target.getCodeName() + ".";
-            case 25: return attacker.getCodeName() + " Terminated " + target.getCodeName() + ".";
+            case 20: return attacker.getCodeName() + " just..... we won't talk about it " + target.getCodeName() + ".";
+
+            case 21: return target.getCodeName() + " was wasted by " + attacker.getCodeName() + ".";
+            case 22: return target.getCodeName() + " was out matched by " + attacker.getCodeName() + ".";
+            case 23: return target.getCodeName() + " got bamboozeled by " + attacker.getCodeName() + ".";
+            case 24: return target.getCodeName() + " got sent home to their mother by " + attacker.getCodeName() + ".";
+
+            case 25: return attacker.getCodeName() + " terminated " + target.getCodeName() + ".";
+            case 26: return attacker.getCodeName() + " served " + target.getCodeName() + " an L+Ratio.";
+            case 27: return attacker.getCodeName() + " called " + target.getCodeName() + " a civil engineer.";
+            case 28: return attacker.getCodeName() + " deleted all of " + target.getCodeName() + "'s semicolons.";
+            case 29: return attacker.getCodeName() + " sent " + target.getCodeName() + " to the shadow realm.";
 
             default: System.out.println("Error: generateBattleString should not reach default branch."); break;
         }

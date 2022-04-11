@@ -13,7 +13,8 @@ public class UDPHandler extends Thread {
 	private final String ipAddress = "127.0.0.1";
 	
 	private ActionDisplay mainDisplay;
-	
+	private boolean gameOver;
+
 	public UDPHandler(ActionDisplay display)
 	{
 		// Create a thread to listen and handle packets
@@ -22,6 +23,7 @@ public class UDPHandler extends Thread {
 			this.sendUDPPacketConnection = new UDPConnection(this.broadcastPort, this.ipAddress);
 			this.receiveUDPPacketConnection = new UDPConnection(this.receivingPort, this.ipAddress);
 			this.mainDisplay = display;
+			this.gameOver = false;
 		} catch (UnknownHostException e)
 		{
 			System.out.println(e);
@@ -33,17 +35,18 @@ public class UDPHandler extends Thread {
 	public void run() {
 		while (true)
 		{
-			//Receives data as long as CombatClock has not expired
+			//Receives data as long as CombatClock has not expired (Checks twice)
 			if(!this.mainDisplay.timeUp()){
 				this.receiveUDPPacketConnection.receiveData();
 				String packet = this.receiveUDPPacketConnection.getSocketData();
-				if (!packet.isEmpty())
+				if (!packet.isEmpty() && !this.mainDisplay.timeUp())
 				{
 					handlePacket(packet);
 				}
 			}
 			else{
 				end();
+				this.gameOver = true;
 			}
 			
 			
