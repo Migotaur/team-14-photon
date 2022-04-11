@@ -247,6 +247,12 @@ public class ActionDisplay extends javax.swing.JPanel implements KeyListener{
             case 17: return attacker.getCodeName() + " shocked " + target.getCodeName() + ".";
             case 18: return attacker.getCodeName() + " schorched " + target.getCodeName() + ".";
             case 19: return attacker.getCodeName() + " no-scoped " + target.getCodeName() + ".";
+            case 20: return attacker.getCodeName() + " Was... we won't talk about it " + target.getCodeName() + ".";
+            case 21: return attacker.getCodeName() + " Wasted by " + target.getCodeName() + ".";
+            case 22: return attacker.getCodeName() + " Was out matched by " + target.getCodeName() + ".";
+            case 23: return attacker.getCodeName() + " bamboozeled by " + target.getCodeName() + ".";
+            case 24: return attacker.getCodeName() + " sent home to his mother by " + target.getCodeName() + ".";
+            case 25: return attacker.getCodeName() + " Terminated " + target.getCodeName() + ".";
 
             default: System.out.println("Error: generateBattleString should not reach default branch."); break;
         }
